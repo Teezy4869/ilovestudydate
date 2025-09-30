@@ -5,13 +5,20 @@ import EditProfile from './components/EditProfile';
 import Settings from './components/Settings';
 import Interests from './components/Interests';
 import GenderSelection from './components/GenderSelection';
-import ShowMeGender from './components/ShowMeGender';
+import Major from './components/Major';
+import Nationality from './components/Nationality';
+import Location from './components/Location';
+import Contact from './components/Contact';
 
 function App() {
   const [currentView, setCurrentView] = useState('profile');
   const [previousView, setPreviousView] = useState(null);
   const [userGender, setUserGender] = useState('Nữ');
-  const [showMeGender, setShowMeGender] = useState('Women');
+  const [major, setMajor] = useState('Công nghệ thông tin');
+  const [nationality, setNationality] = useState('Việt Nam');
+  const [location, setLocation] = useState('Hà Nội');
+  const [phoneNumber, setPhoneNumber] = useState('0962853963');
+  const [email, setEmail] = useState('loremipsum@gmail.com');
 
   const changeView = (newView) => {
     setPreviousView(currentView);
@@ -34,8 +41,20 @@ function App() {
     changeView('genderSelection');
   };
 
-  const handleShowMeGenderSelection = () => {
-    changeView('showMeGenderSelection');
+  const handleMajorSelection = () => {
+    changeView('majorSelection');
+  };
+
+  const handleNationalitySelection = () => {
+    changeView('nationalitySelection');
+  };
+
+  const handleLocationSelection = () => {
+    changeView('locationSelection');
+  };
+
+  const handleContactSelection = () => {
+    changeView('contact');
   };
 
   const handleBack = () => {
@@ -51,18 +70,68 @@ function App() {
     console.log('Gender updated to:', selectedGender);
   };
 
-  const handleShowMeGenderSave = (selectedShowMeGender) => {
-    setShowMeGender(selectedShowMeGender);
-    console.log('Show Me Gender updated to:', selectedShowMeGender);
+  const handleMajorSave = (selectedMajor) => {
+    setMajor(selectedMajor);
+    console.log('Major updated to:', selectedMajor);
   };
 
-  // Render ShowMeGenderSelection view
-  if (currentView === 'showMeGenderSelection') {
+  const handleNationalitySave = (selectedNationality) => {
+    setNationality(selectedNationality);
+    console.log('Nationality updated to:', selectedNationality);
+  };
+
+  const handleLocationSave = (selectedLocation) => {
+    setLocation(selectedLocation);
+    console.log('Location updated to:', selectedLocation);
+  };
+
+  const handleContactSave = ({ phoneNumber, email }) => {
+    setPhoneNumber(phoneNumber);
+    setEmail(email);
+    console.log('Contact updated:', { phoneNumber, email });
+  };
+
+  // Render Contact view
+  if (currentView === 'contact') {
     return (
-      <ShowMeGender 
+      <Contact 
         onBack={handleBack}
-        initialShowMeGender={showMeGender}
-        onShowMeGenderSave={handleShowMeGenderSave}
+        initialPhoneNumber={phoneNumber}
+        initialEmail={email}
+        onContactSave={handleContactSave}
+      />
+    );
+  }
+
+  // Render MajorSelection view
+  if (currentView === 'majorSelection') {
+    return (
+      <Major 
+        onBack={handleBack}
+        initialMajor={major}
+        onMajorSave={handleMajorSave}
+      />
+    );
+  }
+
+  // Render NationalitySelection view
+  if (currentView === 'nationalitySelection') {
+    return (
+      <Nationality 
+        onBack={handleBack}
+        initialNationality={nationality}
+        onNationalitySave={handleNationalitySave}
+      />
+    );
+  }
+
+  // Render LocationSelection view
+  if (currentView === 'locationSelection') {
+    return (
+      <Location 
+        onBack={handleBack}
+        initialLocation={location}
+        onLocationSave={handleLocationSave}
       />
     );
   }
@@ -89,8 +158,15 @@ function App() {
       <Settings 
         onBack={handleBackToProfile} 
         onInterests={handleInterests}
-        onShowMeGenderSelection={handleShowMeGenderSelection}
-        showMeGender={showMeGender}
+        onMajorSelection={handleMajorSelection}
+        onNationalitySelection={handleNationalitySelection}
+        onLocationSelection={handleLocationSelection}
+        onContactSelection={handleContactSelection}
+        currentMajor={major}
+        currentNationality={nationality}
+        currentLocation={location}
+        currentPhoneNumber={phoneNumber}
+        currentEmail={email}
       />
     );
   }
@@ -103,6 +179,12 @@ function App() {
         onInterests={handleInterests}
         onGenderSelection={handleGenderSelection}
         currentGender={userGender}
+        onMajorSelection={handleMajorSelection}
+        onNationalitySelection={handleNationalitySelection}
+        onLocationSelection={handleLocationSelection}
+        currentMajor={major}
+        currentNationality={nationality}
+        currentLocation={location}
       />
     );
   }

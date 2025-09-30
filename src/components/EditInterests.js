@@ -1,4 +1,3 @@
-// src/components/EditInterests.js
 import React, { useState } from 'react';
 import { 
   Box, 
@@ -64,7 +63,7 @@ const EditInterests = ({ onBack, onSave, initialInterests = ['Spotify'] }) => {
       {/* Left Sidebar */}
       <Box
         sx={{
-          width: '400px',
+          width: '360px',
           height: '100vh',
           backgroundColor: 'white',
           display: 'flex',
@@ -76,7 +75,7 @@ const EditInterests = ({ onBack, onSave, initialInterests = ['Spotify'] }) => {
         {/* Header Section with Purple Gradient */}
         <Box
           sx={{
-            height: '80px',
+            height: '120px', // Đổi từ 80px thành 120px để đồng bộ với Profile.js
             background: 'linear-gradient(135deg, #8e24aa 0%, #5e35b1 100%)',
             display: 'flex',
             alignItems: 'center',
@@ -90,28 +89,28 @@ const EditInterests = ({ onBack, onSave, initialInterests = ['Spotify'] }) => {
             <Avatar
               alt="Salamingo"
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=500&fit=crop"
-              sx={{ width: 32, height: 32 }}
+              sx={{ width: 40, height: 40 }} // Điều chỉnh kích thước avatar để nhất quán với Profile.js
             />
-            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '14px' }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '18px' }}>
               Salamingo
             </Typography>
           </Stack>
           
           <Stack direction="row" spacing={1}>
             <IconButton size="small" sx={{ color: 'white' }}>
-              <ChatBubbleOutlineIcon sx={{ fontSize: 16 }} />
+              <ChatBubbleOutlineIcon sx={{ fontSize: 20 }} />
             </IconButton>
             <IconButton size="small" sx={{ 
               color: 'white',
               backgroundColor: 'rgba(255,255,255,0.2)',
-              borderRadius: '6px',
-              width: 24,
-              height: 24,
+              borderRadius: '8px',
+              width: 32,
+              height: 32,
             }}>
-              <AppsIcon sx={{ fontSize: 14 }} />
+              <AppsIcon sx={{ fontSize: 18 }} />
             </IconButton>
             <IconButton size="small" sx={{ color: 'white' }}>
-              <ViewInArIcon sx={{ fontSize: 16 }} />
+              <ViewInArIcon sx={{ fontSize: 20 }} />
             </IconButton>
           </Stack>
         </Box>

@@ -1,77 +1,74 @@
-// src/components/EditProfile.js
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Box, 
   Avatar, 
   Typography, 
   IconButton, 
   Stack, 
-  Button,
-  TextField,
   List,
   ListItem,
-  ListItemText,
   Divider,
-  Grid
+  TextField
 } from '@mui/material';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import AppsIcon from '@mui/icons-material/Apps';
-import AddIcon from '@mui/icons-material/Add';
-import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
-const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = 'Woman' }) => {
-  const [photos, setPhotos] = useState([
-    'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop',
-    'https://images.unsplash.com/photo-1494790108755-2616b332c265?w=200&h=200&fit=crop',
-    'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=200&h=200&fit=crop'
-  ]);
-
-  const addPhoto = () => {
-    console.log('Add new photo');
-  };
-
-  const removePhoto = (index) => {
-    const newPhotos = photos.filter((_, i) => i !== index);
-    setPhotos(newPhotos);
-  };
-
-  const profileSections = [
-    { 
-      label: 'EDUCATION', 
-      value: 'University', 
-      hasArrow: true 
-    },
-    { 
-      label: 'ABOUT ME', 
-      value: '', 
-      hasArrow: false, 
-      isTextarea: true, 
-      placeholder: 'Nếu ngày mai tôi bị bỏy phô cần thi b có tiếc vì đã lướt qua ko', 
-      maxLength: 450 
-    },
-    { 
-      label: 'INTERESTS', 
-      value: 'Gym, Thể thao, The Liems, So ti', 
-      hasArrow: true,
-      onClick: onInterests 
-    },
-    { 
-      label: 'GENDER', 
-      value: currentGender, 
-      hasArrow: true,
-      onClick: onGenderSelection
-    },
-    { 
-      label: 'LANGUAGE', 
-      value: 'Tiếng Việt, Tiếng Anh', 
-      hasArrow: true 
-    },
-    { 
-      label: 'Ngành học', 
-      value: 'Quản trị kinh doanh', 
-      hasArrow: true 
+const EditProfile = ({ 
+  onBack, 
+  onInterests, 
+  onGenderSelection, 
+  currentGender,
+  onMajorSelection,
+  onNationalitySelection,
+  onLocationSelection,
+  currentMajor,
+  currentNationality,
+  currentLocation
+}) => {
+  const profileItems = [
+    {
+      category: 'PROFILE',
+      items: [
+        { 
+          label: 'Name', 
+          value: 'Salamingo', 
+          editable: true 
+        },
+        { 
+          label: 'Gender', 
+          value: currentGender || 'Nữ', 
+          hasArrow: true,
+          onClick: onGenderSelection 
+        },
+        { 
+          label: 'Location', 
+          value: currentLocation || 'Hà Nội',
+          subtitle: 'Việt Nam',
+          hasArrow: true,
+          onClick: onLocationSelection 
+        },
+        { 
+          label: 'Nationality', 
+          value: currentNationality || 'Việt Nam', 
+          hasArrow: true,
+          onClick: onNationalitySelection 
+        },
+        { 
+          label: 'Major', 
+          value: currentMajor || 'Công nghệ thông tin', 
+          hasArrow: true,
+          onClick: onMajorSelection 
+        },
+        { 
+          label: 'Interests', 
+          value: 'Spotify, Heavy Metal, Sushi...', 
+          hasArrow: true,
+          onClick: onInterests 
+        }
+      ]
     }
   ];
 
@@ -84,7 +81,7 @@ const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = '
       {/* Left Sidebar */}
       <Box
         sx={{
-          width: '400px',
+          width: '360px',
           height: '100vh',
           backgroundColor: 'white',
           display: 'flex',
@@ -96,7 +93,7 @@ const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = '
         {/* Header Section with Purple Gradient */}
         <Box
           sx={{
-            height: '80px',
+            height: '120px', // Đồng bộ với Profile.js
             background: 'linear-gradient(135deg, #8e24aa 0%, #5e35b1 100%)',
             display: 'flex',
             alignItems: 'center',
@@ -110,68 +107,65 @@ const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = '
             <Avatar
               alt="Salamingo"
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=500&fit=crop"
-              sx={{ width: 32, height: 32 }}
+              sx={{ width: 40, height: 40 }} // Đồng bộ với Profile.js
             />
-            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '14px' }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
               Salamingo
             </Typography>
           </Stack>
           
           <Stack direction="row" spacing={1}>
             <IconButton size="small" sx={{ color: 'white' }}>
-              <ChatBubbleOutlineIcon sx={{ fontSize: 16 }} />
+              <ChatBubbleOutlineIcon sx={{ fontSize: 20 }} />
             </IconButton>
             <IconButton size="small" sx={{ 
               color: 'white',
               backgroundColor: 'rgba(255,255,255,0.2)',
-              borderRadius: '6px',
-              width: 24,
-              height: 24,
+              borderRadius: '8px',
+              width: 32,
+              height: 32,
             }}>
-              <AppsIcon sx={{ fontSize: 14 }} />
+              <AppsIcon sx={{ fontSize: 18 }} />
             </IconButton>
             <IconButton size="small" sx={{ color: 'white' }}>
-              <ViewInArIcon sx={{ fontSize: 16 }} />
+              <ViewInArIcon sx={{ fontSize: 20 }} />
             </IconButton>
           </Stack>
         </Box>
 
         {/* Edit Profile Header */}
-        <Box sx={{ 
-          padding: '24px', 
-          textAlign: 'center', 
-          backgroundColor: 'white',
-          flexShrink: 0 
-        }}>
-          {/* Navigation Tabs */}
-          <Stack direction="row" justifyContent="center" spacing={6} sx={{ mb: 2 }}>
+        <Box sx={{ padding: '20px', backgroundColor: 'white', flexShrink: 0 }}>
+          <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <IconButton 
+                onClick={onBack}
+                size="small" 
+                sx={{ 
+                  color: '#e91e63',
+                  p: 0
+                }}
+              >
+                <ArrowBackIosNewIcon sx={{ fontSize: 18 }} />
+              </IconButton>
+              
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  color: '#e91e63', 
+                  fontWeight: 'bold', 
+                  fontSize: '18px'
+                }}
+              >
+                Edit Profile
+              </Typography>
+            </Stack>
+            
             <Typography 
               variant="h6" 
               sx={{ 
                 color: '#e91e63', 
                 fontWeight: 'bold', 
-                fontSize: '16px',
-                cursor: 'pointer'
-              }}
-            >
-              Edit
-            </Typography>
-            <Typography 
-              variant="h6" 
-              sx={{ 
-                fontWeight: 'bold', 
-                fontSize: '16px', 
-                color: '#333'
-              }}
-            >
-              Edit Info
-            </Typography>
-            <Typography 
-              variant="h6" 
-              sx={{ 
-                color: '#e91e63', 
-                fontWeight: 'bold', 
-                fontSize: '16px',
+                fontSize: '14px', 
                 cursor: 'pointer',
                 '&:hover': {
                   color: '#d81b60'
@@ -183,185 +177,138 @@ const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = '
             </Typography>
           </Stack>
           
-          <Typography variant="body2" sx={{ color: '#999', mb: 3 }}>
-            Preview
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              color: '#e91e63', 
+              fontWeight: 'bold', 
+              mb: 2,
+              cursor: 'pointer'
+            }}
+          >
+            Change Profile Photo
           </Typography>
-
-          {/* Photo Grid - 3x3 Layout */}
-          <Grid container spacing={1.5} sx={{ maxWidth: '350px', margin: '0 auto' }}>
-            {/* Row 1 - Existing Photos */}
-            {photos.map((photo, index) => (
-              <Grid item xs={4} key={`photo-${index}`}>
-                <Box sx={{ position: 'relative' }}>
-                  <Box
-                    sx={{
-                      width: '100%',
-                      paddingTop: '130%',
-                      backgroundImage: `url(${photo})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      borderRadius: '12px',
-                      position: 'relative'
-                    }}
-                  />
-                  <IconButton
-                    size="small"
-                    onClick={() => removePhoto(index)}
-                    sx={{
-                      position: 'absolute',
-                      top: 6,
-                      right: 6,
-                      backgroundColor: 'rgba(255,255,255,0.9)',
-                      color: '#666',
-                      width: 20,
-                      height: 20,
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                      '&:hover': { backgroundColor: 'white' }
-                    }}
-                  >
-                    <CloseIcon sx={{ fontSize: 12 }} />
-                  </IconButton>
-                </Box>
-              </Grid>
-            ))}
-
-            {/* Empty Slots for Adding Photos */}
-            {Array.from({ length: 6 }).map((_, index) => (
-              <Grid item xs={4} key={`empty-${index}`}>
-                <Box
-                  onClick={addPhoto}
-                  sx={{
-                    width: '100%',
-                    paddingTop: '130%',
-                    border: '2px dashed #ddd',
-                    borderRadius: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    position: 'relative',
-                    backgroundColor: '#fafafa',
-                    transition: 'all 0.2s ease',
-                    '&:hover': { 
-                      borderColor: '#8e24aa',
-                      backgroundColor: '#f8f8f8'
-                    }
-                  }}
-                >
-                  <IconButton
-                    sx={{
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      backgroundColor: '#8e24aa',
-                      color: 'white',
-                      width: 28,
-                      height: 28,
-                      '&:hover': { backgroundColor: '#7b1fa2' }
-                    }}
-                  >
-                    <AddIcon sx={{ fontSize: 16 }} />
-                  </IconButton>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
         </Box>
 
-        {/* Profile Sections */}
+        {/* Profile List */}
         <Box sx={{ flex: 1, overflowY: 'auto' }}>
-          <List sx={{ padding: 0 }}>
-            {profileSections.map((section, index) => (
-              <React.Fragment key={index}>
-                <ListItem sx={{ 
-                  padding: '16px 20px', 
-                  flexDirection: 'column', 
-                  alignItems: 'flex-start',
-                  cursor: section.hasArrow ? 'pointer' : 'default',
-                  transition: 'background-color 0.2s ease',
-                  '&:hover': section.hasArrow ? { 
-                    backgroundColor: '#f8f8f8' 
-                  } : {}
-                }}
-                onClick={section.onClick ? section.onClick : undefined}
-                >
-                  <Typography variant="caption" sx={{ 
+          {profileItems.map((section, sectionIndex) => (
+            <Box key={sectionIndex}>
+              {section.category && (
+                <Typography 
+                  variant="caption" 
+                  sx={{ 
                     color: '#999', 
-                    fontWeight: 'bold', 
-                    mb: 1, 
-                    fontSize: '11px', 
-                    letterSpacing: '0.5px' 
-                  }}>
-                    {section.label}
-                  </Typography>
-                  
-                  {section.isTextarea ? (
-                    <Box sx={{ width: '100%', position: 'relative' }}>
-                      <TextField
-                        multiline
-                        rows={3}
-                        placeholder={section.placeholder}
-                        variant="outlined"
-                        size="small"
-                        sx={{ 
-                          width: '100%',
-                          '& .MuiOutlinedInput-root': {
-                            fontSize: '14px',
-                            lineHeight: 1.4,
-                            borderRadius: '8px'
-                          },
-                          '& .MuiOutlinedInput-input': {
-                            padding: '12px'
-                          }
-                        }}
-                      />
-                      <Typography 
-                        variant="caption" 
-                        sx={{ 
-                          position: 'absolute', 
-                          bottom: -18, 
-                          right: 0, 
-                          color: '#999',
-                          fontSize: '10px'
-                        }}
-                      >
-                        {section.maxLength}
-                      </Typography>
-                    </Box>
-                  ) : (
-                    <Box sx={{ 
-                      display: 'flex', 
-                      justifyContent: 'space-between', 
-                      alignItems: 'center', 
-                      width: '100%',
-                      minHeight: '32px'
-                    }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flex: 1 }}>
-                        <Typography variant="body2" sx={{ 
-                          color: '#333', 
-                          fontSize: '14px',
-                          fontWeight: '500'
+                    fontWeight: 'bold',
+                    padding: '16px 20px 8px 20px',
+                    display: 'block',
+                    letterSpacing: '0.5px'
+                  }}
+                >
+                  {section.category}
+                </Typography>
+              )}
+              
+              <List sx={{ padding: 0 }}>
+                {section.items.map((item, itemIndex) => (
+                  <React.Fragment key={itemIndex}>
+                    <ListItem 
+                      sx={{ 
+                        padding: '12px 20px', 
+                        cursor: item.hasArrow ? 'pointer' : 'default',
+                        '&:hover': item.hasArrow ? { backgroundColor: '#f8f8f8' } : {}
+                      }}
+                      onClick={item.onClick ? item.onClick : undefined}
+                    >
+                      <Box sx={{ width: '100%' }}>
+                        <Box sx={{ 
+                          display: 'flex', 
+                          justifyContent: 'space-between', 
+                          alignItems: 'center',
+                          width: '100%'
                         }}>
-                          {section.value}
-                        </Typography>
+                          <Box sx={{ flex: 1 }}>
+                            <Typography variant="body2" sx={{ 
+                              color: '#333',
+                              fontWeight: '500'
+                            }}>
+                              {item.label}
+                            </Typography>
+                            {item.subtitle && (
+                              <Typography variant="caption" sx={{ 
+                                color: '#999',
+                                display: 'block',
+                                mt: 0.5
+                              }}>
+                                {item.subtitle}
+                              </Typography>
+                            )}
+                            {item.editable && (
+                              <TextField
+                                fullWidth
+                                value={item.value}
+                                variant="outlined"
+                                sx={{
+                                  mt: 1,
+                                  '& .MuiOutlinedInput-root': {
+                                    borderRadius: '8px',
+                                    backgroundColor: '#f8f8f8',
+                                    '& fieldset': {
+                                      borderColor: '#ddd'
+                                    },
+                                    '&:hover fieldset': {
+                                      borderColor: '#e91e63'
+                                    },
+                                    '&.Mui-focused fieldset': {
+                                      borderColor: '#e91e63'
+                                    }
+                                  },
+                                  '& .MuiInputBase-input': {
+                                    fontSize: '14px',
+                                    color: '#333',
+                                    padding: '12px'
+                                  }
+                                }}
+                              />
+                            )}
+                          </Box>
+                          
+                          <Box sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center',
+                            ml: 2
+                          }}>
+                            {!item.editable && item.value && (
+                              <Typography variant="body2" sx={{ 
+                                color: '#999',
+                                mr: item.hasArrow ? 1 : 0,
+                                fontSize: '13px'
+                              }}>
+                                {item.value}
+                              </Typography>
+                            )}
+                            {item.hasArrow && (
+                              <ArrowForwardIosIcon sx={{ 
+                                fontSize: 14, 
+                                color: '#ccc'
+                              }} />
+                            )}
+                          </Box>
+                        </Box>
                       </Box>
-                      {section.hasArrow && (
-                        <ArrowForwardIosIcon sx={{ 
-                          fontSize: 12, 
-                          color: '#ccc',
-                          transition: 'color 0.2s ease'
-                        }} />
-                      )}
-                    </Box>
-                  )}
-                </ListItem>
-                {index < profileSections.length - 1 && (
-                  <Divider sx={{ margin: '0 20px' }} />
-                )}
-              </React.Fragment>
-            ))}
-          </List>
+                    </ListItem>
+                    {itemIndex < section.items.length - 1 && (
+                      <Divider sx={{ margin: '0 20px' }} />
+                    )}
+                  </React.Fragment>
+                ))}
+              </List>
+              
+              {sectionIndex < profileItems.length - 1 && (
+                <Box sx={{ height: '20px' }} />
+              )}
+            </Box>
+          ))}
         </Box>
       </Box>
 
@@ -379,17 +326,17 @@ const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = '
           maxWidth: '500px'
         }}>
           <Box sx={{
-            width: '100px',
-            height: '100px',
+            width: '80px',
+            height: '80px',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #e91e63 0%, #8e24aa 100%)',
+            background: 'linear-gradient(135deg, #8e24aa 0%, #5e35b1 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto 24px auto'
           }}>
             <Typography variant="h3" sx={{ color: 'white' }}>
-              ✏️
+              ✎
             </Typography>
           </Box>
           
@@ -398,7 +345,7 @@ const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = '
             fontWeight: 'bold',
             mb: 2
           }}>
-            Edit Your Profile
+            Edit Profile
           </Typography>
           
           <Typography variant="body1" sx={{ 
@@ -406,8 +353,7 @@ const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = '
             lineHeight: 1.6,
             mb: 3
           }}>
-            Customize your profile to showcase your personality. Add photos, update your interests, 
-            and share what makes you unique. Your profile helps others get to know the real you.
+            Update your personal information, interests, and preferences to make your profile stand out.
           </Typography>
           
           <Box sx={{
@@ -418,13 +364,13 @@ const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = '
           }}>
             <Box sx={{
               padding: '8px 16px',
-              backgroundColor: '#ffebee',
+              backgroundColor: '#e3f2fd',
               borderRadius: '20px',
-              color: '#e91e63',
+              color: '#1976d2',
               fontSize: '12px',
               fontWeight: 'bold'
             }}>
-              Add Photos
+              Personal Info
             </Box>
             <Box sx={{
               padding: '8px 16px',
@@ -434,17 +380,7 @@ const EditProfile = ({ onBack, onInterests, onGenderSelection, currentGender = '
               fontSize: '12px',
               fontWeight: 'bold'
             }}>
-              Update Interests
-            </Box>
-            <Box sx={{
-              padding: '8px 16px',
-              backgroundColor: '#e8f5e8',
-              borderRadius: '20px',
-              color: '#4caf50',
-              fontSize: '12px',
-              fontWeight: 'bold'
-            }}>
-              Express Yourself
+              Preferences
             </Box>
           </Box>
         </Box>

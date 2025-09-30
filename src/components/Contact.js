@@ -4,39 +4,36 @@ import {
   Avatar, 
   Typography, 
   IconButton, 
-  Stack,
-  Chip
+  Stack, 
+  TextField, 
+  Button
 } from '@mui/material';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import AppsIcon from '@mui/icons-material/Apps';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
-const Interests = ({ onBack }) => {
-  const [selectedInterests, setSelectedInterests] = useState(['Spotify']);
+const Contact = ({ onBack, initialPhoneNumber, initialEmail, onContactSave }) => {
+  const [phoneNumber, setPhoneNumber] = useState(initialPhoneNumber || '0962853963');
+  const [email, setEmail] = useState(initialEmail || 'loremipsum@gmail.com');
 
-  // Danh sách các sở thích
-  const interests = [
-    'Thể Hệ 9x', 'Harry Potter', 'SoundCloud',
-    'Spa', 'Chăm sóc bản thân',
-    'Heavy Metal', 'Tiếc gia đình',
-    'Thể dục dụng cụ', 'Phim tài liệu',
-    'Phim chính kịch', 'Thiền', 'Âm thực',
-    'Sushi', 'Spotify', 'Hockey', 'Bóng rổ',
-    'Phim viễn tưởng', 'Tập luyện tại nhà',
-    'Nhà hát', 'Trải nghiệm các quán cà phê',
-    'Thúy cung', 'Giày Sneaker', 'Instagram',
-    'Suối nước nóng', 'Đi đạo', 'Chạy bộ'
-  ];
+  const handleSave = () => {
+    const phoneRegex = /^\d{10}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleInterestToggle = (interest) => {
-    setSelectedInterests(prev => {
-      if (prev.includes(interest)) {
-        return prev.filter(item => item !== interest);
-      } else {
-        return [...prev, interest];
-      }
-    });
+    if (!phoneRegex.test(phoneNumber)) {
+      alert('Vui lòng nhập số điện thoại hợp lệ (10 chữ số).');
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      alert('Vui lòng nhập email hợp lệ.');
+      return;
+    }
+
+    if (onContactSave) {
+      onContactSave({ phoneNumber, email });
+    }
+    onBack();
   };
 
   return (
@@ -100,7 +97,7 @@ const Interests = ({ onBack }) => {
           </Stack>
         </Box>
 
-        {/* Interests Header */}
+        {/* Contact Header */}
         <Box sx={{ padding: '20px', backgroundColor: 'white', flexShrink: 0 }}>
           {/* Back Button and Title */}
           <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
@@ -124,101 +121,101 @@ const Interests = ({ onBack }) => {
                   fontSize: '18px'
                 }}
               >
-                Sở Thích
+                Thông tin liên hệ
               </Typography>
             </Stack>
-            
-            <Typography 
-              variant="h6" 
-              sx={{ 
-                color: '#e91e63', 
-                fontWeight: 'bold', 
-                fontSize: '14px', 
-                cursor: 'pointer',
-                '&:hover': {
-                  color: '#d81b60'
-                }
-              }}
-              onClick={onBack}
-            >
-              Xong
-            </Typography>
           </Stack>
-          
-          {/* Selected count */}
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              color: '#333', 
-              fontWeight: 'bold', 
-              mb: 1 
-            }}
-          >
-            Số Thích
-          </Typography>
-          
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: '#666',
-              mb: 1 
-            }}
-          >
-            ({selectedInterests.length}/5)
-          </Typography>
-          
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: '#666',
-              mb: 2 
-            }}
-          >
-            Chọn các số thích bạn muốn chia sẻ với mọi người. Chọn tối thiểu 3.
-          </Typography>
-        </Box>
 
-        {/* Interests Grid */}
-        <Box sx={{ flex: 1, overflowY: 'auto', padding: '0 20px 20px 20px' }}>
-          <Box sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: 1.5,
-          }}>
-            {interests.map((interest, index) => (
-              <Chip
-                key={index}
-                label={interest}
-                onClick={() => handleInterestToggle(interest)}
-                variant={selectedInterests.includes(interest) ? "filled" : "outlined"}
-                sx={{
-                  fontSize: '14px',
-                  padding: '8px 12px',
-                  height: 'auto',
-                  borderRadius: '20px',
-                  cursor: 'pointer',
-                  border: selectedInterests.includes(interest) 
-                    ? '2px solid #e91e63' 
-                    : '1px solid #ddd',
-                  backgroundColor: selectedInterests.includes(interest) 
-                    ? '#e91e63' 
-                    : 'transparent',
-                  color: selectedInterests.includes(interest) 
-                    ? 'white' 
-                    : '#333',
-                  '&:hover': {
-                    backgroundColor: selectedInterests.includes(interest) 
-                      ? '#d81b60' 
-                      : '#f5f5f5',
-                    borderColor: '#e91e63'
-                  },
-                  '& .MuiChip-label': {
-                    padding: '4px 8px'
-                  }
-                }}
-              />
-            ))}
-          </Box>
+          {/* Input Fields */}
+          <Typography 
+            variant="caption" 
+            sx={{ 
+              color: '#999', 
+              fontWeight: 'bold', 
+              mb: 2, 
+              display: 'block' 
+            }}
+          >
+            THÔNG TIN LIÊN HỆ
+          </Typography>
+
+          <TextField
+            fullWidth
+            label="Số điện thoại"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            placeholder="Nhập số điện thoại"
+            sx={{
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '8px',
+                backgroundColor: '#f8f8f8',
+                '& fieldset': {
+                  borderColor: '#ddd'
+                },
+                '&:hover fieldset': {
+                  borderColor: '#e91e63'
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#e91e63'
+                }
+              },
+              '& .MuiInputBase-input': {
+                fontSize: '14px',
+                color: '#333',
+                padding: '12px'
+              }
+            }}
+          />
+
+          <TextField
+            fullWidth
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Nhập email"
+            sx={{
+              mb: 3,
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '8px',
+                backgroundColor: '#f8f8f8',
+                '& fieldset': {
+                  borderColor: '#ddd'
+                },
+                '&:hover fieldset': {
+                  borderColor: '#e91e63'
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#e91e63'
+                }
+              },
+              '& .MuiInputBase-input': {
+                fontSize: '14px',
+                color: '#333',
+                padding: '12px'
+              }
+            }}
+          />
+
+          <Button
+            fullWidth
+            onClick={handleSave}
+            variant="contained"
+            sx={{
+              backgroundColor: '#e91e63',
+              color: 'white',
+              fontWeight: 'bold',
+              textTransform: 'none',
+              borderRadius: '25px',
+              padding: '12px 0',
+              fontSize: '16px',
+              '&:hover': {
+                backgroundColor: '#d81b60'
+              }
+            }}
+          >
+            Lưu
+          </Button>
         </Box>
       </Box>
 
@@ -231,11 +228,11 @@ const Interests = ({ onBack }) => {
         justifyContent: 'center'
       }}>
         <Typography variant="h6" sx={{ color: '#333' }}>
-          Interests Content Area
+          Thông tin liên hệ Content Area
         </Typography>
       </Box>
     </Box>
   );
 };
 
-export default Interests;
+export default Contact;

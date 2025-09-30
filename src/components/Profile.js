@@ -1,4 +1,3 @@
-// src/components/Profile.js
 import React from 'react';
 import { Box, Avatar, Typography, IconButton, Stack } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -12,7 +11,7 @@ const Profile = ({ onEditProfile, onSettings }) => {
   return (
     <Box
       sx={{
-        width: '300px',
+        width: '360px', // Đổi từ 300px thành 360px để đồng bộ với Settings.js
         height: '100vh',
         backgroundColor: 'white',
         display: 'flex',

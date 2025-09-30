@@ -1,4 +1,3 @@
-// src/components/GenderSelection.js
 import React, { useState } from 'react';
 import { 
   Box, 
@@ -58,7 +57,7 @@ const GenderSelection = ({ onBack, initialGender = 'Nữ', onGenderSave }) => {
         {/* Header Section with Purple Gradient */}
         <Box
           sx={{
-            height: '80px',
+            height: '120px', // Đồng bộ với Profile.js
             background: 'linear-gradient(135deg, #8e24aa 0%, #5e35b1 100%)',
             display: 'flex',
             alignItems: 'center',
@@ -72,38 +71,34 @@ const GenderSelection = ({ onBack, initialGender = 'Nữ', onGenderSave }) => {
             <Avatar
               alt="Salamingo"
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&h=500&fit=crop"
-              sx={{ width: 32, height: 32 }}
+              sx={{ width: 40, height: 40 }} // Đồng bộ với Profile.js
             />
-            <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '14px' }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
               Salamingo
             </Typography>
           </Stack>
           
           <Stack direction="row" spacing={1}>
             <IconButton size="small" sx={{ color: 'white' }}>
-              <ChatBubbleOutlineIcon sx={{ fontSize: 16 }} />
+              <ChatBubbleOutlineIcon sx={{ fontSize: 20 }} />
             </IconButton>
             <IconButton size="small" sx={{ 
               color: 'white',
               backgroundColor: 'rgba(255,255,255,0.2)',
-              borderRadius: '6px',
-              width: 24,
-              height: 24,
+              borderRadius: '8px',
+              width: 32,
+              height: 32,
             }}>
-              <AppsIcon sx={{ fontSize: 14 }} />
+              <AppsIcon sx={{ fontSize: 18 }} />
             </IconButton>
             <IconButton size="small" sx={{ color: 'white' }}>
-              <ViewInArIcon sx={{ fontSize: 16 }} />
+              <ViewInArIcon sx={{ fontSize: 20 }} />
             </IconButton>
           </Stack>
         </Box>
 
         {/* Gender Selection Header */}
-        <Box sx={{ 
-          padding: '20px', 
-          backgroundColor: 'white',
-          flexShrink: 0 
-        }}>
+        <Box sx={{ padding: '20px', backgroundColor: 'white', flexShrink: 0 }}>
           {/* Back Button and Title */}
           <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
             <Stack direction="row" alignItems="center" spacing={2}>
@@ -129,26 +124,29 @@ const GenderSelection = ({ onBack, initialGender = 'Nữ', onGenderSave }) => {
                 Giới Tính
               </Typography>
             </Stack>
-
+            
             <Typography 
-              variant="body2" 
+              variant="h6" 
               sx={{ 
                 color: '#e91e63', 
-                fontWeight: 'bold',
-                cursor: 'pointer'
+                fontWeight: 'bold', 
+                fontSize: '14px', 
+                cursor: 'pointer',
+                '&:hover': {
+                  color: '#d81b60'
+                }
               }}
               onClick={handleSave}
             >
               Xong
             </Typography>
           </Stack>
-
+          
           <Typography 
             variant="body2" 
             sx={{ 
-              color: '#666',
-              lineHeight: 1.5,
-              mb: 3
+              color: '#666', 
+              mb: 2 
             }}
           >
             Chọn giới tính của bạn. Thông tin này sẽ được hiển thị trong hồ sơ của bạn.
@@ -156,58 +154,16 @@ const GenderSelection = ({ onBack, initialGender = 'Nữ', onGenderSave }) => {
         </Box>
 
         {/* Gender Options */}
-        <Box sx={{ 
-          flex: 1, 
-          overflowY: 'auto',
-          padding: '0 20px'
-        }}>
-          <RadioGroup
-            value={selectedGender}
-            onChange={handleGenderChange}
-            name="gender-selection"
-          >
+        <Box sx={{ flex: 1, overflowY: 'auto', padding: '0 20px 20px 20px' }}>
+          <RadioGroup value={selectedGender} onChange={handleGenderChange}>
             <List sx={{ padding: 0 }}>
               {genderOptions.map((option, index) => (
-                <ListItem 
-                  key={option.value}
-                  sx={{ 
-                    padding: '16px 0',
-                    cursor: 'pointer',
-                    borderRadius: '8px',
-                    transition: 'background-color 0.2s ease',
-                    '&:hover': { 
-                      backgroundColor: '#f8f8f8' 
-                    },
-                    ...(selectedGender === option.value && {
-                      backgroundColor: '#f3e5f5'
-                    })
-                  }}
-                  onClick={() => setSelectedGender(option.value)}
-                >
+                <ListItem key={index} sx={{ padding: '12px 0' }}>
                   <FormControlLabel
                     value={option.value}
-                    control={
-                      <Radio
-                        sx={{
-                          color: '#ddd',
-                          '&.Mui-checked': {
-                            color: '#e91e63',
-                          },
-                          '& .MuiSvgIcon-root': {
-                            fontSize: 20,
-                          }
-                        }}
-                      />
-                    }
+                    control={<Radio sx={{ color: '#e91e63', '&.Mui-checked': { color: '#e91e63' } }} />}
                     label={
-                      <Typography 
-                        variant="body1" 
-                        sx={{ 
-                          color: '#333',
-                          fontWeight: selectedGender === option.value ? '600' : '400',
-                          fontSize: '16px'
-                        }}
-                      >
+                      <Typography variant="body2" sx={{ color: '#333', fontWeight: '500' }}>
                         {option.label}
                       </Typography>
                     }
@@ -240,10 +196,10 @@ const GenderSelection = ({ onBack, initialGender = 'Nữ', onGenderSave }) => {
           maxWidth: '500px'
         }}>
           <Box sx={{
-            width: '100px',
-            height: '100px',
+            width: '80px',
+            height: '80px',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #e91e63 0%, #8e24aa 100%)',
+            background: 'linear-gradient(135deg, #8e24aa 0%, #5e35b1 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -289,9 +245,9 @@ const GenderSelection = ({ onBack, initialGender = 'Nữ', onGenderSave }) => {
             </Box>
             <Box sx={{
               padding: '8px 16px',
-              backgroundColor: '#f3e5f5',
+              backgroundColor: '#fce4ec',
               borderRadius: '20px',
-              color: '#8e24aa',
+              color: '#e91e63',
               fontSize: '12px',
               fontWeight: 'bold'
             }}>
